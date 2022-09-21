@@ -1,5 +1,0 @@
-- Buildroot: https://buildroot.org/
-- Buildroot alternative: https://intestinate.com/pilfs/
-- Buildroot tutorial: https://cellux.github.io/articles/diy-linux-with-buildroot-part-1/
-- Helpful forum question: https://forums.raspberrypi.com/viewtopic.php?t=202806
-- TinyCore OS: https://iotbyhvm.ooo/picore-tiny-core-linux-on-raspberry-pi/
