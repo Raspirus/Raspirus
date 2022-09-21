@@ -1,0 +1,36 @@
+Idea: Create a very efficient files anti virus scanner;
+Probably using language: C++;
+
+Steps:
+1. Create custom OS woth Buildroot
+2. Test OS on Virtualbox
+3. Create file scanner in C++
+4. Test antivirus with command line
+5. Create GUI with QT or other framework
+6. Test GUI
+7. Increase efficiency
+
+
+Contacted company?
+- Alperia
+
+Problems/Issues:
+- Not good at C/C++
+- No idea if OS works
+- OS needs to integrate with existing touch screen
+- File scanning must be fast
+
+TODO:
+- Lockdown USB on insert
+- Pay attention to autorun.inf -> Lockdown this file / Remove permissions
+
+Privacy:
+Captive portal that shows files with file path,
+touch screen only shows score.
+
+Add webpage that explains each type of possible malware to user
+
+
+OS alternative:
+- Use Tiny Core
+- Use Raspbian lite and install needed stuff
