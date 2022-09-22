@@ -2,16 +2,18 @@
 CC = g++
  
 # compiler flags:
-#  -g     - this flag adds debugging information to the executable file
-#  -Wall  - this flag is used to turn on most compiler warnings
+#  -g         - this flag adds debugging information to the executable file
+#  -Wall      - this flag is used to turn on most compiler warnings
+# -std=c++17  - tells the compiler to use C++17
 CFLAGS  = -g -Wall -std=c++17
  
-# The build target 
-TARGET = Main.cpp
+# The build target
 NAME = Matura
+TARGET = Main.cpp
+FCLASS = class/File.cpp
  
 main: 
-	$(CC) $(CFLAGS) Main.cpp class/File.cpp -o $(NAME)
+	$(CC) $(CFLAGS) $(TARGET) $(FCLASS) -o $(NAME)
 
 clean:
 	$(RM) $(NAME)
