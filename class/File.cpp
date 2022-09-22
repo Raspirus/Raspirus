@@ -1,5 +1,4 @@
 #include <string> // Adds string support
-#include <filesystem> // Adds path support
 #include <iostream> // For cout to work
 #include <fstream> // For file reading and manipulation
 
@@ -43,11 +42,11 @@ class File {
 
         // Extracts name from given path and sets it to the class
         void setName(string path) {
-            filesystem::path p(path);
+            string base_filename = path.substr(path.find_last_of("/\\") + 1);
             // Exctracts filename and extension from the path and converts it back to a string
-            this->name = p.filename().string();
+            this->name = base_filename;
             // DEBUG: Write out the file name
-            cout << "filename and extension: " << p.filename() << endl;
+            cout << "filename and extension: " << this->getName() << endl;
         };
 
         /*
