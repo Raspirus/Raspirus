@@ -1,6 +1,8 @@
 #include <string> // Adds string support
 #include <iostream> // For cout to work
 #include <fstream> // For file reading and manipulation
+#include <array> // Used for Hash creation
+#include <memory> // Used for Hash creation
 
 using namespace std;
 
