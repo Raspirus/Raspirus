@@ -399,4 +399,4 @@ FodyWeavers.xsd
 
 # Custom
 *.exe
-Diagramme/
+Diagramme/*
