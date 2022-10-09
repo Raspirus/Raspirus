@@ -16,7 +16,7 @@ class FileRetriever {
 
         void listFiles() {
             // Algorithm to put all files at a destination into an array
-            for (const auto & entry : filesystem::directory_iterator(path)) {
+            for (const auto & entry : filesystem::directory_iterator(this->path)) {
                 this->addFile(File(entry.path().string()));
                 // Should list all files inside directory and sub-directory
                 std::cout << entry.path() << std::endl;
@@ -24,10 +24,9 @@ class FileRetriever {
         }        
     
     public:
-        FileRetriever(string file_path) {
-            ifstream ifile;
-            ifile.open(file_path);
-            this->path = file_path;
+        FileRetriever(string folder_path) {
+            this->path = folder_path;
+            this->listFiles();
         }
 
         void addFile(File file) {
