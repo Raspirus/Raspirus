@@ -12,6 +12,7 @@ using namespace std;
  * - Name of the file, with extension
  * - Path of the file, full path: "G:/docus/tables/..." (with file name)
  * - MD5hash sum to compare with database
+ * TODO: Incomplete class -> add Exceptions!
  */
 
 class File {
