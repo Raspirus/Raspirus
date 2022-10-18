@@ -8,5 +8,6 @@ and it removes threats from it, making it safer.
 
 ## Design:
 The design of the GUI is as easy and user-freindly as possible, without limiting its functionality. The whole Mockup of the app
-has been planned and designed using Figma and you can take a look at the result using the link below:\
+has been planned and designed using Figma and you can take a look at the result using the link below.\
+The actual design will then be coded with Qt in C++ \
 Figma: https://www.figma.com/file/pkgpwieNbhYiOi4Gz6Uyt6/Raspirus?node-id=0%3A1
