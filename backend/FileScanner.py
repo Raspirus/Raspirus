@@ -72,7 +72,7 @@ class FileScanner:
     # After successfully doing so, we can start comparing the hashes
     def start_scanner(self):
         self.get_file_list()
-        print("File list creeated! " + str(len(self.unscanned_list)) + " files found in " + self.path)
+        print("File list created! " + str(len(self.unscanned_list)) + " files found in " + self.path)
         self.get_hash_list()
         print("Hash list created! " + str(len(self.hash_list)) + " Hashes found")
         self.compare_lists()
