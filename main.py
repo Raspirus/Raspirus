@@ -17,9 +17,18 @@ def main():
 
 def updater():
     # Path to directory with md5 files/file extension, path to the bighash file
+    # 38797306 Hashes
     hapi = HashAPI("backend/SignatureLists/*md5", "backend/BigHash.db")
+    hapi.update_bighash()
     h_list = hapi.get_hash()
     print("Length: " + str(len(h_list)))
 
+def downloader():
+    hapi = HashAPI("backend/SignatureLists/*md5", "backend/BigHash.db")
+    hapi.download_new_signatures("backend/SignatureLists")
+
+def more_info():
+    hapi = HashAPI("backend/SignatureLists/*md5", "backend/BigHash.db")
+    hapi.get_hash_info("backend/temp/test.json", "ecb9cf121345c404495d99c737c7d3bf")
 
 updater()
