@@ -402,4 +402,5 @@ FodyWeavers.xsd
 backend/SignatureLists/
 backend/BigHash.db
 test.py
-backend/.env
+.env
+test.json
