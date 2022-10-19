@@ -399,4 +399,6 @@ FodyWeavers.xsd
 
 # Custom
 *.exe
-Diagramme/*
+backend/SignatureLists/
+backend/BigHash.db
+test.py
