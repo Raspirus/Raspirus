@@ -397,6 +397,9 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# qtcreator generated files
+*.pro.user*
+
 # Custom
 *.exe
 backend/SignatureLists/
