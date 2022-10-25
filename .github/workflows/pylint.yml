@@ -1,6 +1,6 @@
 name: Pylint
 
-on: [push]
+on: [pull_request]
 
 jobs:
   build:
@@ -18,5 +18,12 @@ jobs:
         pip install pylint
         pip install -r requirements.txt
     - name: Analysing the code with pylint
-      run: |
-        pylint $(git ls-files '*.py')
+      uses: dciborow/action-pylint@v1
+      with:
+        github_token: ${{ secrets.github_token }}
+        # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
+        reporter: github-pr-review
+        # Change reporter level if you need.
+        # GitHub Status Check won't become failure with warning.
+        level: warning
+        glob_pattern: "**/*.py"
