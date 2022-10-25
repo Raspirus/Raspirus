@@ -1,5 +1,6 @@
 # Raspirus - Raspberry Pi Virusscanner
-[![Python Flake8](https://github.com/Benji377/Raspirus/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/Benji377/Raspirus/actions/workflows/python-app.yml)
+[![Python Flake8](https://github.com/Benji377/Raspirus/actions/workflows/python-flake8.yml/badge.svg)](https://github.com/Benji377/Raspirus/actions/workflows/python-flake8.yml)
+[![Pylint](https://github.com/Benji377/Raspirus/actions/workflows/pylint.yml/badge.svg)](https://github.com/Benji377/Raspirus/actions/workflows/pylint.yml)
 
 ## Introduction
 Even to this day, there are still some devices that for whatever reason can't have an antivirus or are outside the internet. 
@@ -19,3 +20,6 @@ But I have almost no experience in C++ and I wanted to use this opportunity.
 After a lot of struggle I eventually got it to work, but the code looked ugly and I didn't fully understand everything that was going on.
 So after some more thought I decided to switch back to Python, which I know far better.
 Python isn't that slow anymore, and for the purpose I need it for its actually quite ok.
+
+## Instructions
+Coming soon
