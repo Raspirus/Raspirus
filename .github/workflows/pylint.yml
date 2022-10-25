@@ -18,12 +18,9 @@ jobs:
         pip install pylint
         pip install -r requirements.txt
     - name: Analysing the code with pylint
-      uses: dciborow/action-pylint@v0.0.7
+      uses: gabriel-milan/action-pylint@v1
       with:
-        github_token: ${{ secrets.github_token }}
-        # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
-        reporter: github-pr-review
-        # Change reporter level if you need.
-        # GitHub Status Check won't become failure with warning.
-        level: warning
-        glob_pattern: "**/*.py"
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}} # GitHub token
+        path: "**/*.py" # Glob pattern for files to lint
+        fail: true # Fail the action if pylint errors are found
+        pr-message: true # Send a PR message if pylint errors are found
