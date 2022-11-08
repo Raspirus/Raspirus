@@ -2,6 +2,7 @@ import sys
 import os
 
 from PyQt5.QtCore import QUrl, QObject
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 
@@ -14,6 +15,8 @@ os.environ['QT_QUICK_CONTROLS_STYLE'] = "Material"
 # Create an instance of the application
 # QApplication MUST be declared in global scope to avoid segmentation fault
 app = QApplication(sys.argv)
+
+app.setWindowIcon(QIcon("views/images/logo.png"))
 
 # Create QML engine
 engine = QQmlApplicationEngine()
