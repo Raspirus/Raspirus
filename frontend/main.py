@@ -1,7 +1,7 @@
 import sys
 import os
 
-from PyQt5.QtCore import QUrl, QObject
+from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import QQmlApplicationEngine
@@ -22,7 +22,7 @@ app.setWindowIcon(QIcon("views/images/logo.png"))
 engine = QQmlApplicationEngine()
 
 # Load the qml file into the engine
-engine.load(QUrl('views/main.qml'))
+engine.load(QUrl('views/settings.qml'))
 
 # Qml file error handling
 if not engine.rootObjects():
