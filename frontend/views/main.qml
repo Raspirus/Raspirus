@@ -27,9 +27,9 @@ ApplicationWindow {
         onClicked: {
             // Needs to be replaced with signals
             var component = Qt.createComponent("settings.qml")
-            var window    = component.createObject(mainpage)
+            var window = component.createObject(mainpage)
             window.show()
-            mainpage.visible = 0
+            mainpage.hide()
         }
     }
 

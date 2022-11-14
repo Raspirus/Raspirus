@@ -25,6 +25,13 @@ ApplicationWindow {
         radius: 20
         icon.source: "images/settings_page/left-arrow-icon.svg"
         Material.background: Material.BlueGrey
+        onClicked: {
+            // Needs to be replaced with signals
+            var component = Qt.createComponent("main.qml")
+            var window = component.createObject(settingspage)
+            window.show()
+            settingspage.hide()
+        }
     }
 
     Label {

@@ -41,5 +41,12 @@ ApplicationWindow {
         x: 315
         y: 380
         Material.background: Material.Green
+        onClicked: {
+            // Needs to be replaced with signals
+            var component = Qt.createComponent("main.qml")
+            var window = component.createObject(cleanpage)
+            window.show()
+            cleanpage.hide()
+        }
     }
 }
