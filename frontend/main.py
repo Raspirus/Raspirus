@@ -22,7 +22,7 @@ app.setWindowIcon(QIcon("views/images/logo.png"))
 engine = QQmlApplicationEngine()
 
 # Load the qml file into the engine
-engine.load(QUrl('views/settings.qml'))
+engine.load(QUrl('views/virusPage.qml'))
 
 # Qml file error handling
 if not engine.rootObjects():
