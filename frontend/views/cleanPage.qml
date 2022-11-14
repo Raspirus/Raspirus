@@ -13,4 +13,33 @@ ApplicationWindow {
     visible: true
     Material.theme: Material.Light
     title: "Raspirus - CLEAN"
+
+    Label {
+        text: "NO VIRUS FOUND"
+        font.pixelSize: 48
+        color: Material.color(Material.Green)
+        width: 325
+        height: 60
+        x: 200
+        y: 45
+    }
+
+    Image {
+        width: 200
+        height: 200
+        x: 300
+        y: 140
+        source: "images/clean_page/partying-face.png"
+    }
+
+    Button {
+        id: confirmbtn
+        text: "SUBMIT"
+        font.pixelSize: 24
+        width: 170
+        height: 50
+        x: 315
+        y: 380
+        Material.background: Material.Green
+    }
 }
