@@ -1,19 +1,16 @@
-from pages.SettingsPage import SettingsPage
 from pages.MainPage import MainPage
+from pages.SettingsPage import SettingsPage
+from pages.LoadingPage import LoadingPage
 from pages.InfoPage import InfoPage
 from pages.VirusPage import VirusPage
 from pages.ClearPage import ClearPage
 # Importing the tkinter module
 import tkinter as tk
 
-# Used for styling the GUI
-from tkinter import ttk
-
-
-# FOLLOW THIS: https://www.digitalocean.com/community/tutorials/tkinter-working-with-classes
 
 class windows(tk.Tk):
-    pages = (MainPage, SettingsPage, InfoPage, VirusPage, ClearPage)
+    # Items have a fixed order! -> Contains all pages as a reference
+    pages = (MainPage, SettingsPage, LoadingPage, InfoPage, VirusPage, ClearPage)
 
     def __init__(self):
         # Adding a title to the window

@@ -1,6 +1,6 @@
 # Fonts
 title_font = ("Inter", 64, "bold")
-subtitle_font = ("Inter", 48, "bold")
+subtitle_font = ("Inter", 44, "bold")
 normal_text = ("Inter", 12, "normal")
 button_font = ("Inter", 20, "normal")
 settings_font = ("Inter", 12, "normal")

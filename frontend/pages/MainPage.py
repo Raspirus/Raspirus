@@ -22,6 +22,7 @@ class MainPage(tk.Frame):
         self.drive_selector.place(x=90, y=215, width=620, height=48)
 
         self.start_btn = tk.Button(self, text="START", font=button_font, fg=background_color, bg=primary_color)
+        self.start_btn.config(command=lambda: controller.show_frame(controller.pages[2]))
         self.start_btn.place(x=185, y=315, width=170, height=50)
 
         self.info_btn = tk.Button(self, text="INFO", font=button_font, fg=background_color, bg=white)
