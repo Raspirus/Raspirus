@@ -1,3 +1,4 @@
+from pages.SettingsPage import SettingsPage
 from pages.MainPage import MainPage
 from pages.InfoPage import InfoPage
 from pages.VirusPage import VirusPage
@@ -12,6 +13,8 @@ from tkinter import ttk
 # FOLLOW THIS: https://www.digitalocean.com/community/tutorials/tkinter-working-with-classes
 
 class windows(tk.Tk):
+    pages = (MainPage, SettingsPage, InfoPage, VirusPage, ClearPage)
+
     def __init__(self):
         # Adding a title to the window
         tk.Tk.__init__(self)
@@ -31,8 +34,7 @@ class windows(tk.Tk):
         # We will now create a dictionary of frames
         self.frames = {}
         # we'll create the frames themselves later but let's add the components to the dictionary.
-        for F in (MainPage, InfoPage, VirusPage, ClearPage):
-            print(F)
+        for F in self.pages:
             frame = F(container, self)
 
             # the windows class acts as the root window for the frames.

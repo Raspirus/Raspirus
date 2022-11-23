@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
 from Raspirus.frontend.utility import *  # For colors and fonts
 
 
