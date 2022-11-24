@@ -26,9 +26,10 @@ class MainPage(tk.Frame):
         self.start_btn.place(x=185, y=315, width=170, height=50)
 
         self.info_btn = tk.Button(self, text="INFO", font=button_font, fg=background_color, bg=white)
+        self.info_btn.config(command=lambda: controller.show_frame(controller.pages[3]))
         self.info_btn.place(x=420, y=315, width=170, height=50)
 
-        self.settings_btn = tk.Button(self, text="SETTINGS", font=settings_font, fg=secondary_color,
+        self.settings_btn = tk.Button(self, text="SETTINGS", font=small_btn_font, fg=secondary_color,
                                       bg=white)
         self.settings_btn.config(command=lambda: controller.show_frame(controller.pages[1]))
         self.settings_btn.place(x=670, y=15, width=110, height=40)

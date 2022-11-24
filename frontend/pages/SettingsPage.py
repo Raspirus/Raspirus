@@ -18,7 +18,7 @@ class SettingsPage(tk.Frame):
         tk.Frame.__init__(self, parent, bg=background_color)
 
         # Button to return to the main page
-        self.home_btn = tk.Button(self, text="HOME", font=settings_font,
+        self.home_btn = tk.Button(self, text="HOME", font=small_btn_font,
                                   fg=background_color, bg=grey)
         self.home_btn.config(command=lambda: controller.show_frame(controller.pages[0]))
         self.home_btn.place(x=20, y=30, width=110, height=30)
