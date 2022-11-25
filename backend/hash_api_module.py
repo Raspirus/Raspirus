@@ -1,3 +1,11 @@
+"""
+A module that contains functions to control the Hash API
+
+Classes:
+    HashAPI
+
+"""
+
 import os
 import shutil
 import glob
@@ -13,6 +21,24 @@ from dotenv import load_dotenv
 # - Update the Hash signatures
 
 class HashAPI:
+    """
+    This class will do the following tasks using the Virusshare API
+        - Periodically check if new hash signatures are available
+        - Remove Hashes that are found twice in files
+        - If needed, find more specific data on a Hash
+        - Update the Hash signatures
+
+    Methods:
+        __init__(signature_path, bighash_path)
+        get_hash()
+        merge_files()
+        refactor_bighash()
+        bighash_is_updated()
+        update_bighash()
+        download_new_signatures(download_path)
+        get_hash_info(json_location, virus_hash)
+
+    """
     load_dotenv()
     api_key = os.getenv('VIRUS_API')
     bighash_path = ""
@@ -21,15 +47,24 @@ class HashAPI:
     file_list = []
 
     def __init__(self, signature_path, bighash_path):
+        """ Initializes the class setting the given parameters
+
+        Arguments:
+            signature_path -> Path to the folder containing all hash signatures
+            bighash_path -> Path to the one big file containing all hashes merged together
+
+        """
         self.signature_list_path = signature_path
         self.bighash_path = bighash_path
         self.file_list = glob.glob(self.signature_list_path)
 
     def get_hash(self):
+        """ Returns the hash list """
         return self.hash_list
 
     # A function to merge all hash lists into one
     def merge_files(self):
+        """ Merges all hashes of files into one big file """
         print("Starting file merging")
         with open(self.bighash_path, 'wb', encoding="utf8") as wfd:
             for file in self.file_list:
@@ -37,6 +72,7 @@ class HashAPI:
                     shutil.copyfileobj(file_pointer, wfd)
 
     def refactor_bighash(self):
+        """ Removed doubles and incorrect hashes from the big file """
         # Extract all hashes from file and put them into an array
         # then overwrite the file with this array and put a message at the end of the file
         # The message will then specify the last merged file
@@ -63,9 +99,11 @@ class HashAPI:
             file_pointer.writelines("# Last added: " + self.file_list[len(self.file_list) - 1])
 
     def bighash_is_updated(self):
-        # If the name of the file mentioned in the last line of bighash
-        # is the same as the last item in file_list
-        # we consider the file as updated
+        """ Checks the last line in the big file to determine if its updated
+        If the name of the file mentioned in the last line of bighash
+        is the same as the last item in file_list
+        we consider the file as updated
+         """
         print("Checking if file is updated")
         if os.path.exists(self.bighash_path):
             with open(self.bighash_path, 'rb', encoding="utf8") as file_pointer:
@@ -84,6 +122,7 @@ class HashAPI:
         return False
 
     def update_bighash(self):
+        """ Updates the big file if it hasn't already"""
         # First check if the file exists, then if the latest hash list has been added
         if self.bighash_is_updated():
             print("File up to date, nothing to do")
@@ -94,6 +133,13 @@ class HashAPI:
             self.refactor_bighash()
 
     def download_new_signatures(self, download_path):
+        """ Downloads new hash signatures from the online database
+        and puts them in a folder
+
+        Arguments:
+            download_path -> Where to save the downloaded files
+
+        """
         # Downloads new hashes from Virusshare if available
         # Use the last downloaded Hash to create a URL and add +1 to it
         # If it exists we download it and add +1 again
@@ -118,6 +164,14 @@ class HashAPI:
                 break
 
     def get_hash_info(self, json_location, virus_hash):
+        """ Creates a JSON file containing information about a given hash
+
+        Arguments:
+            json_location -> Where to save the generated JSON file
+            virus_hash -> The hash to lookup information about
+
+        """
+
         # Retrieves more detailed information about a specific hash by using the Virusshare API
         url = "https://virusshare.com/apiv2/file?apikey=" + self.api_key + "&hash=" + virus_hash
 

@@ -25,6 +25,7 @@ class Windows(tk.Tk):
     pages = (MainPage, SettingsPage, LoadingPage, InfoPage, VirusPage, ClearPage)
 
     def __init__(self):
+        """ Initializes the class """
         # Adding a title to the window
         tk.Tk.__init__(self)
         self.wm_title("Raspirus")
@@ -57,7 +58,8 @@ class Windows(tk.Tk):
         """This method opens a new frame by giving it the ID
            of the frame contained in the frames variable
 
-        Input Arguments: cont must be int
+        Arguments:
+            cont -> Index of the frame
         """
         frame = self.frames[cont]
         # raises the current frame to the top

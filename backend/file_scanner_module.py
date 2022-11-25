@@ -1,12 +1,28 @@
+""" This module has the main job of scanning a specific path
+and returning the contents of it in form of File objects
+
+Classes: FileScanner
+Methods:
+    bi_contains(lst, item)
+
+"""
+
 import os.path
 from bisect import bisect_left
 from Raspirus.backend.file_module import File
 
 
 def bi_contains(lst, item):
+    """ Uses the bisec module to search for an item in the list efficiently
+    List should be sorted!
+
+    Arguments:
+        lst -> List of items where you want to search something
+        item -> Item you want to search in the list
+
+    """
     # Reference:
     # https://stackoverflow.com/questions/2701173/most-efficient-way-for-a-lookup-search-in-a-huge-list-python
-    """ efficient `item in lst` for sorted lists """
     # if item is larger than the last its not in the list, but the bisect would
     # find `len(lst)` as the index to insert, so check that first. Else, if the
     # item is in the list then it has to be at index bisect_left(lst, item)
@@ -14,6 +30,16 @@ def bi_contains(lst, item):
 
 
 class FileScanner:
+    """ Defines the FileScanner object with all its functions and arguments.
+
+    Methods:
+        __init__(path, signature_path)
+        get_hash_list()
+        get_file_list()
+        compare_lists
+        start_scanner()
+
+    """
     # unscanned_list = List containing all files found in the specified path
     # clean_files = List of files whose hash is not listed
     # dirty_files = List of files whose hash is listed
@@ -26,6 +52,13 @@ class FileScanner:
     signature_db_path = ""
 
     def __init__(self, path, signature_path):
+        """ Initializes the class by setting the given parameters
+
+         Arguments:
+             path -> Location of where you want to search for files
+             signature_path -> Location of the file containing all virus hashes
+
+         """
         # Checks if path is a directory and sets it to the class
         if os.path.isdir(path) and os.path.isfile(signature_path):
             self.path = path
@@ -39,6 +72,7 @@ class FileScanner:
     # Tries to open the file containing all hashes and read it line by line
     # Each line is then added to the hash_list
     def get_hash_list(self):
+        """ Creates a list of hashes, extracted from a file"""
         try:
             with open(self.signature_db_path, encoding="utf8") as file_pointer:
                 for line in file_pointer:
@@ -50,6 +84,7 @@ class FileScanner:
 
     # Finds all files in a specified path and adds them to the unscanned_list
     def get_file_list(self):
+        """ Creates a list of File objects """
         for path, directories, file_names in os.walk(self.path):
             print("Directories found: " + str(directories))
             for file_name in file_names:
@@ -60,6 +95,7 @@ class FileScanner:
     # Compares each hash of a file with the hashes in the hash_list
     # If it finds something, the file is added to the dirty_files list
     def compare_lists(self):
+        """ Uses bisect to compare each Hash of a File to any Hash in the hash_list """
         self.hash_list.sort()
         for file in self.unscanned_list:
             if bi_contains(self.hash_list, file.get_hash()):
@@ -74,6 +110,7 @@ class FileScanner:
     # When initializing the scanner we fill the unscanned_list and hashes_list
     # After successfully doing so, we can start comparing the hashes
     def start_scanner(self):
+        """ Starts the scanner """
         self.get_file_list()
         print("File list created! " + str(len(self.unscanned_list)) +
               " files found in " + self.path)
