@@ -90,7 +90,6 @@ class HashAPI:
             self.file_list = glob.glob(self.signature_list_path)
             self.merge_files()
             self.refactor_bighash()
-        pass
 
     def download_new_signatures(self, download_path):
         # Downloads new hashes from Virusshare if available

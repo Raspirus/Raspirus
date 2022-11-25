@@ -3,9 +3,9 @@ import os
 
 
 class File:
-    name = ""
-    hash = ""
-    path = ""
+    name: str
+    hash: bytes
+    path: str
 
     def __init__(self, path):
         if os.path.exists(path):
