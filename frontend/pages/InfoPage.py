@@ -72,3 +72,28 @@ class InfoPage(tk.Frame):
         self.rcontact_label = tk.Label(self, text="demetzbenjamin23@gmail.com", font=NORMAL_TEXT_FONT,
                                        fg=TEXT_COLOR, bg=BACKGROUND_COLOR, anchor='w')
         self.rcontact_label.place(x=405, y=370, width=360, height=50)
+
+    def setProperties(self, properties: [4]):
+        """ A function to fill information about the app
+        If None is given, the default value is used
+
+        Arguments:
+            properties -> An array containing 5 string elements
+
+        """
+
+        if properties[0] is not None:
+            self.rname_label.config(text=properties[0])
+
+        if properties[1] is not None:
+            self.rversion_label.config(text=properties[1])
+
+        if properties[2] is not None:
+            self.rcreator_label.config(text=properties[2])
+
+        if properties[3] is not None:
+            self.rlicense_label.config(text=properties[3])
+
+        if properties[4] is not None:
+            self.rcontact_label.config(text=properties[4])
+
