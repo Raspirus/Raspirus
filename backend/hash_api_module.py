@@ -32,9 +32,9 @@ class HashAPI:
     def merge_files(self):
         print("Starting file merging")
         with open(self.bighash_path, 'wb', encoding="utf8") as wfd:
-            for f in self.file_list:
-                with open(f, 'rb') as fd:
-                    shutil.copyfileobj(fd, wfd)
+            for file in self.file_list:
+                with open(file, 'rb') as file_pointer:
+                    shutil.copyfileobj(file_pointer, wfd)
 
     def refactor_bighash(self):
         # Extract all hashes from file and put them into an array
@@ -63,22 +63,24 @@ class HashAPI:
             file_pointer.writelines("# Last added: " + self.file_list[len(self.file_list) - 1])
 
     def bighash_is_updated(self):
-        # If the name of the file mentioned in the last line of bighash is the same as the last item in file_list
+        # If the name of the file mentioned in the last line of bighash
+        # is the same as the last item in file_list
         # we consider the file as updated
         print("Checking if file is updated")
         if os.path.exists(self.bighash_path):
-            with open(self.bighash_path, 'rb', encoding="utf8") as f:
+            with open(self.bighash_path, 'rb', encoding="utf8") as file_pointer:
                 try:  # catch OSError in case of a one line file
-                    f.seek(-2, os.SEEK_END)
-                    while f.read(1) != b'\n':
-                        f.seek(-2, os.SEEK_CUR)
+                    file_pointer.seek(-2, os.SEEK_END)
+                    while file_pointer.read(1) != b'\n':
+                        file_pointer.seek(-2, os.SEEK_CUR)
                 except OSError:
-                    f.seek(0)
-                last_line = f.readline().decode()
+                    file_pointer.seek(0)
+                last_line = file_pointer.readline().decode()
                 print(last_line)
                 print(last_line.split("added:", 1)[1])
                 print(self.file_list[len(self.file_list) - 1])
-                return (last_line.split("added:", 1)[1]).strip() == (self.file_list[len(self.file_list) - 1]).strip()
+                return (last_line.split("added:", 1)[1]).strip() == \
+                       (self.file_list[len(self.file_list) - 1]).strip()
         return False
 
     def update_bighash(self):

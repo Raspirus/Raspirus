@@ -40,8 +40,8 @@ class FileScanner:
     # Each line is then added to the hash_list
     def get_hash_list(self):
         try:
-            with open(self.signature_db_path, encoding="utf8") as fp:
-                for line in fp:
+            with open(self.signature_db_path, encoding="utf8") as file_pointer:
+                for line in file_pointer:
                     # Comments in the file need to be removed
                     if not line.startswith("#"):
                         self.hash_list.append(str(line))
