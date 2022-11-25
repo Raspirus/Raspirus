@@ -1,17 +1,17 @@
 # Fonts
-title_font = ("Inter", 64, "bold")
-subtitle_font = ("Inter", 44, "bold")
-normal_text = ("Inter", 12, "normal")
-button_font = ("Inter", 20, "normal")
-small_btn_font = ("Inter", 12, "normal")
+TITLE_FONT = ("Inter", 64, "bold")
+SUBTITLE_FONT = ("Inter", 44, "bold")
+NORMAL_TEXT_FONT = ("Inter", 12, "normal")
+BUTTON_TEXT_FONT = ("Inter", 20, "normal")
+SMALL_BUTTON_TEXT_FONT = ("Inter", 12, "normal")
 
 # Colors
 # Reference: https://materialui.co/flatuicolors/
-white = "#ECF0F1"
-grey = "#95A5A6"
-primary_color = "#1ABC9C"
-secondary_color = "#3498DB"
-success_color = "#2ECC71"
-failure_color = "#E74C3C"
-warning_color = "#F1C40F"
-background_color = "#212121"  # #2C3E50
+WHITE_COLOR = "#ECF0F1"
+GREY_COLOR = "#95A5A6"
+PRIMARY_COLOR = "#1ABC9C"
+SECONDARY_COLOR = "#3498DB"
+SUCCESS_COLOR = "#2ECC71"
+FAILURE_COLOR = "#E74C3C"
+WARNING_COLOR = "#F1C40F"
+BACKGROUND_COLOR = "#212121"  # #2C3E50

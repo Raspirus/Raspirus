@@ -10,26 +10,26 @@ class MainPage(tk.Frame):
     settings_btn: tk.Button
 
     def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent, bg=background_color)
+        tk.Frame.__init__(self, parent, bg=BACKGROUND_COLOR)
 
         self.title_label = tk.Label(self, text="RASPIRUS",
-                                    font=title_font, fg=primary_color, bg=background_color)
+                                    font=TITLE_FONT, fg=PRIMARY_COLOR, bg=BACKGROUND_COLOR)
         self.title_label.place(x=140, y=60, width=510, height=120)
 
         # highlightbackground / highlightcolor sets a border to the component
-        self.drive_selector = tk.Listbox(self, highlightbackground=primary_color, highlightcolor=primary_color,
-                                         highlightthickness=2, bg=white)
+        self.drive_selector = tk.Listbox(self, highlightbackground=PRIMARY_COLOR, highlightcolor=PRIMARY_COLOR,
+                                         highlightthickness=2, bg=WHITE_COLOR)
         self.drive_selector.place(x=90, y=215, width=620, height=48)
 
-        self.start_btn = tk.Button(self, text="START", font=button_font, fg=background_color, bg=primary_color)
+        self.start_btn = tk.Button(self, text="START", font=BUTTON_TEXT_FONT, fg=BACKGROUND_COLOR, bg=PRIMARY_COLOR)
         self.start_btn.config(command=lambda: controller.show_frame(controller.pages[2]))
         self.start_btn.place(x=185, y=315, width=170, height=50)
 
-        self.info_btn = tk.Button(self, text="INFO", font=button_font, fg=background_color, bg=white)
+        self.info_btn = tk.Button(self, text="INFO", font=BUTTON_TEXT_FONT, fg=BACKGROUND_COLOR, bg=WHITE_COLOR)
         self.info_btn.config(command=lambda: controller.show_frame(controller.pages[3]))
         self.info_btn.place(x=420, y=315, width=170, height=50)
 
-        self.settings_btn = tk.Button(self, text="SETTINGS", font=small_btn_font, fg=secondary_color,
-                                      bg=white)
+        self.settings_btn = tk.Button(self, text="SETTINGS", font=SMALL_BUTTON_TEXT_FONT, fg=SECONDARY_COLOR,
+                                      bg=WHITE_COLOR)
         self.settings_btn.config(command=lambda: controller.show_frame(controller.pages[1]))
         self.settings_btn.place(x=670, y=15, width=110, height=40)

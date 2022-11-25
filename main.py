@@ -1,5 +1,5 @@
-from backend.FileScanner import FileScanner
-from backend.HashAPI import HashAPI
+from backend.file_scanner_module import FileScanner
+from backend.hash_api_module import HashAPI
 
 signature_path = "backend/BigHash.db"
 signature_lists_path = "backend/SignatureLists/*md5"

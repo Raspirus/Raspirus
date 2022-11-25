@@ -18,11 +18,11 @@ class File:
 
     def get_checksum(self, hash_factory=hashlib.md5, chunk_num_blocks=128):
         # Reference: https://stackoverflow.com/questions/1131220/get-md5-hash-of-big-files-in-python
-        h = hash_factory()
-        with open(self.path, 'rb') as f:
-            while chunk := f.read(chunk_num_blocks * h.block_size):
-                h.update(chunk)
-        self.hash = h.digest()
+        hash_factory = hash_factory()
+        with open(self.path, 'rb') as file_pointer:
+            while chunk := file_pointer.read(chunk_num_blocks * hash_factory.block_size):
+                hash_factory.update(chunk)
+        self.hash = hash_factory.digest()
 
     def get_name(self):
         self.name = os.path.basename(self.path)
