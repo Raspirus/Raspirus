@@ -1,44 +1,76 @@
-import sys
-import os
+"""This module starts other frontend pages and their backend
 
-from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtQml import QQmlApplicationEngine
+Classes: Windows
+"""
 
-# Helpful docu: https://github.com/seanwu1105/pyqt5-qtquick2-example
+# Importing the tkinter module
+import tkinter as tk
+import ctypes
 
-# Set the QtQuick Style
-# Acceptable values: Default, Fusion, Imagine, Material, Universal.
-os.environ['QT_QUICK_CONTROLS_STYLE'] = "Material"
+from pages.SettingsLogPage import SettingsLogPage
+from pages.MainPage import MainPage
+from pages.SettingsPage import SettingsPage
+from pages.LoadingPage import LoadingPage
+from pages.InfoPage import InfoPage
+from pages.VirusPage import VirusPage
+from pages.ClearPage import ClearPage
 
-# Create an instance of the application
-# QApplication MUST be declared in global scope to avoid segmentation fault
-app = QApplication(sys.argv)
+# Sets a higher resolution on Tkinter frames
+ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
-app.setWindowIcon(QIcon("views/images/logo.png"))
 
-# Create QML engine
-engine = QQmlApplicationEngine()
+class Windows(tk.Tk):
+    """This class contains all other pages of the application and can call them
 
-# Load the qml file into the engine
-engine.load(QUrl('views/cleanPage.qml'))
+    Methods:
+        __init__(self)
+        show_frame(self, cont)
+    """
+    # Items have a fixed order! -> Contains all pages as a reference
+    pages = (MainPage, SettingsPage, LoadingPage, InfoPage, VirusPage, ClearPage, SettingsLogPage)
 
-# Qml file error handling
-if not engine.rootObjects():
-    sys.exit(-1)
+    def __init__(self):
+        """ Initializes the class """
+        # Adding a title to the window
+        tk.Tk.__init__(self)
+        self.wm_title("Raspirus")
+        self.wm_geometry("800x480")
+        self.wm_resizable(width=False, height=False)
 
-# Send QT_QUICK_CONTROLS_STYLE to main qml (only for demonstration)
-# For more details and other methods to communicate between Qml and Python:
-#   http://doc.qt.io/archives/qt-4.8/qtbinding.html
-#qtquick2Themes = engine.rootObjects()[0].findChild(
-#    QObject,
-#    'qtquick2Themes'
-#)
-#qtquick2Themes.setProperty('text', os.environ['QT_QUICK_CONTROLS_STYLE'])
+        # creating a frame and assigning it to container
+        container = tk.Frame(self)
+        # specifying the region where the frame is packed in root
+        container.pack(side="top", fill="both", expand=True)
 
-# engine.quit.connect(app.quit)
-# Unnecessary,
-# since QQmlEngine.quit has already connect to QCoreApplication.quit
+        # configuring the location of the container using grid
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
 
-sys.exit(app.exec_())
+        # We will now create a dictionary of frames
+        self.frames = {}
+        # we'll create the frames themselves later but let's add the components to the dictionary.
+        for Frame in self.pages:
+            frame = Frame(container, self)
+
+            # the windows class acts as the root window for the frames.
+            self.frames[Frame] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        # Using a method to switch frames
+        self.show_frame(MainPage)
+
+    def show_frame(self, cont):
+        """This method opens a new frame by giving it the ID
+           of the frame contained in the frames variable
+
+        Arguments:
+            cont -> Index of the frame
+        """
+        frame = self.frames[cont]
+        # raises the current frame to the top
+        frame.tkraise()
+
+
+if __name__ == "__main__":
+    app = Windows()
+    app.mainloop()

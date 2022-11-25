@@ -1,8 +1,16 @@
+"""
+A module that contains functions to control the Hash API
+
+Classes:
+    HashAPI
+
+"""
+
 import os
 import shutil
 import glob
-import wget
 from urllib.error import HTTPError
+import wget
 from dotenv import load_dotenv
 
 
@@ -13,30 +21,58 @@ from dotenv import load_dotenv
 # - Update the Hash signatures
 
 class HashAPI:
+    """
+    This class will do the following tasks using the Virusshare API
+        - Periodically check if new hash signatures are available
+        - Remove Hashes that are found twice in files
+        - If needed, find more specific data on a Hash
+        - Update the Hash signatures
+
+    Methods:
+        __init__(signature_path, bighash_path)
+        get_hash()
+        merge_files()
+        refactor_bighash()
+        bighash_is_updated()
+        update_bighash()
+        download_new_signatures(download_path)
+        get_hash_info(json_location, virus_hash)
+
+    """
     load_dotenv()
     api_key = os.getenv('VIRUS_API')
     bighash_path = ""
     signature_list_path = ""
-    hash_list = list()
-    file_list = list()
+    hash_list = []
+    file_list = []
 
     def __init__(self, signature_path, bighash_path):
+        """ Initializes the class setting the given parameters
+
+        Arguments:
+            signature_path -> Path to the folder containing all hash signatures
+            bighash_path -> Path to the one big file containing all hashes merged together
+
+        """
         self.signature_list_path = signature_path
         self.bighash_path = bighash_path
         self.file_list = glob.glob(self.signature_list_path)
 
     def get_hash(self):
+        """ Returns the hash list """
         return self.hash_list
 
     # A function to merge all hash lists into one
     def merge_files(self):
+        """ Merges all hashes of files into one big file """
         print("Starting file merging")
-        with open(self.bighash_path, 'wb') as wfd:
-            for f in self.file_list:
-                with open(f, 'rb') as fd:
-                    shutil.copyfileobj(fd, wfd)
+        with open(self.bighash_path, 'wb', encoding="utf8") as wfd:
+            for file in self.file_list:
+                with open(file, 'rb') as file_pointer:
+                    shutil.copyfileobj(file_pointer, wfd)
 
     def refactor_bighash(self):
+        """ Removed doubles and incorrect hashes from the big file """
         # Extract all hashes from file and put them into an array
         # then overwrite the file with this array and put a message at the end of the file
         # The message will then specify the last merged file
@@ -44,8 +80,8 @@ class HashAPI:
 
         # Read all hashes from file
         print("Reading all hashes from file...")
-        with open(self.bighash_path) as fp:
-            for line in fp:
+        with open(self.bighash_path, encoding="utf8") as file_pointer:
+            for line in file_pointer:
                 # Comments in the file need to be removed
                 if not line.startswith("#"):
                     self.hash_list.append(str(line))
@@ -56,36 +92,37 @@ class HashAPI:
 
         # Write all hashes to file
         print("Writing all hashes to file...")
-        with open(self.bighash_path, 'w') as fp:
+        with open(self.bighash_path, 'w', encoding="utf8") as file_pointer:
             for hashes in self.hash_list:
-                fp.writelines(hashes)
+                file_pointer.writelines(hashes)
             # Write last line to identify which Hash we included for last
-            fp.writelines("# Last added: " + self.file_list[len(self.file_list) - 1])
+            file_pointer.writelines("# Last added: " + self.file_list[len(self.file_list) - 1])
 
     def bighash_is_updated(self):
-        # If the name of the file mentioned in the last line of bighash is the same as the last item in file_list
-        # we consider the file as updated
+        """ Checks the last line in the big file to determine if its updated
+        If the name of the file mentioned in the last line of bighash
+        is the same as the last item in file_list
+        we consider the file as updated
+         """
         print("Checking if file is updated")
         if os.path.exists(self.bighash_path):
-            with open(self.bighash_path, 'rb') as f:
+            with open(self.bighash_path, 'rb', encoding="utf8") as file_pointer:
                 try:  # catch OSError in case of a one line file
-                    f.seek(-2, os.SEEK_END)
-                    while f.read(1) != b'\n':
-                        f.seek(-2, os.SEEK_CUR)
+                    file_pointer.seek(-2, os.SEEK_END)
+                    while file_pointer.read(1) != b'\n':
+                        file_pointer.seek(-2, os.SEEK_CUR)
                 except OSError:
-                    f.seek(0)
-                last_line = f.readline().decode()
+                    file_pointer.seek(0)
+                last_line = file_pointer.readline().decode()
                 print(last_line)
                 print(last_line.split("added:", 1)[1])
                 print(self.file_list[len(self.file_list) - 1])
-                if (last_line.split("added:", 1)[1]).strip() == (self.file_list[len(self.file_list) - 1]).strip():
-                    return True
-                else:
-                    return False
-        else:
-            return False
+                return (last_line.split("added:", 1)[1]).strip() == \
+                       (self.file_list[len(self.file_list) - 1]).strip()
+        return False
 
     def update_bighash(self):
+        """ Updates the big file if it hasn't already"""
         # First check if the file exists, then if the latest hash list has been added
         if self.bighash_is_updated():
             print("File up to date, nothing to do")
@@ -94,9 +131,15 @@ class HashAPI:
             self.file_list = glob.glob(self.signature_list_path)
             self.merge_files()
             self.refactor_bighash()
-        pass
 
     def download_new_signatures(self, download_path):
+        """ Downloads new hash signatures from the online database
+        and puts them in a folder
+
+        Arguments:
+            download_path -> Where to save the downloaded files
+
+        """
         # Downloads new hashes from Virusshare if available
         # Use the last downloaded Hash to create a URL and add +1 to it
         # If it exists we download it and add +1 again
@@ -117,18 +160,25 @@ class HashAPI:
                 if err.code == 404:
                     print("No more file to download")
                     break
-                else:
-                    print("ERROR: " + str(err))
-                    break
+                print("ERROR: " + str(err))
+                break
 
-    def get_hash_info(self, json_location, vhash):
+    def get_hash_info(self, json_location, virus_hash):
+        """ Creates a JSON file containing information about a given hash
+
+        Arguments:
+            json_location -> Where to save the generated JSON file
+            virus_hash -> The hash to lookup information about
+
+        """
+
         # Retrieves more detailed information about a specific hash by using the Virusshare API
-        url = "https://virusshare.com/apiv2/file?apikey=" + self.api_key + "&hash=" + vhash
+        url = "https://virusshare.com/apiv2/file?apikey=" + self.api_key + "&hash=" + virus_hash
 
         try:
             wget.download(url, json_location)
-            with open(json_location) as fp:
-                for line in fp:
+            with open(json_location, encoding="utf8") as file_pointer:
+                for line in file_pointer:
                     print(line)
         except HTTPError as err:
             if err.code == 243:
