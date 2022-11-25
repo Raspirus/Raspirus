@@ -18,18 +18,20 @@ class MainPage(tk.Frame):
 
         # highlightbackground / highlightcolor sets a border to the component
         self.drive_selector = tk.Listbox(self, highlightbackground=PRIMARY_COLOR, highlightcolor=PRIMARY_COLOR,
-                                         highlightthickness=2, bg=WHITE_COLOR)
+                                         highlightthickness=2, bg=TEXT_COLOR)
         self.drive_selector.place(x=90, y=215, width=620, height=48)
 
-        self.start_btn = tk.Button(self, text="START", font=BUTTON_TEXT_FONT, fg=BACKGROUND_COLOR, bg=PRIMARY_COLOR)
+        self.start_btn = tk.Button(self, text="START", font=BUTTON_TEXT_FONT,
+                                   fg=BACKGROUND_COLOR, bg=PRIMARY_COLOR)
         self.start_btn.config(command=lambda: controller.show_frame(controller.pages[2]))
         self.start_btn.place(x=185, y=315, width=170, height=50)
 
-        self.info_btn = tk.Button(self, text="INFO", font=BUTTON_TEXT_FONT, fg=BACKGROUND_COLOR, bg=WHITE_COLOR)
+        self.info_btn = tk.Button(self, text="INFO", font=BUTTON_TEXT_FONT,
+                                  fg=BACKGROUND_COLOR, bg=TEXT_COLOR)
         self.info_btn.config(command=lambda: controller.show_frame(controller.pages[3]))
         self.info_btn.place(x=420, y=315, width=170, height=50)
 
-        self.settings_btn = tk.Button(self, text="SETTINGS", font=SMALL_BUTTON_TEXT_FONT, fg=SECONDARY_COLOR,
-                                      bg=WHITE_COLOR)
+        self.settings_btn = tk.Button(self, text="SETTINGS", font=SMALL_BUTTON_TEXT_FONT,
+                                      fg=SECONDARY_COLOR, bg=TEXT_COLOR)
         self.settings_btn.config(command=lambda: controller.show_frame(controller.pages[1]))
         self.settings_btn.place(x=670, y=15, width=110, height=40)

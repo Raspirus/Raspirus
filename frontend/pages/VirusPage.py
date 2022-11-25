@@ -15,7 +15,7 @@ class VirusPage(tk.Frame):
         self.title_label.place(x=190, y=50, width=415, height=60)
 
         self.virus_list = tk.Listbox(self, font=NORMAL_TEXT_FONT,
-                                     fg=BACKGROUND_COLOR, bg=WHITE_COLOR)
+                                     fg=BACKGROUND_COLOR, bg=TEXT_COLOR)
         self.virus_list.place(x=100, y=160, width=600, height=150)
 
         self.confirm_btn = tk.Button(self, text="CONFIRM", font=NORMAL_TEXT_FONT,

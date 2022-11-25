@@ -28,14 +28,16 @@ class LoadingPage(tk.Frame):
         self.progress_bar.place(x=50, y=225, width=700, height=45)
 
         self.scanned_label = tk.Label(self, text="Scanned 12.345 files of 24.478 total", font=NORMAL_TEXT_FONT,
-                                      fg=WHITE_COLOR, bg=BACKGROUND_COLOR, anchor='w')
+                                      fg=TEXT_COLOR, bg=BACKGROUND_COLOR, anchor='w')
         self.scanned_label.place(x=50, y=275, width=280, height=30)
 
         self.vfound_label = tk.Label(self, text="Virus found: 0", font=NORMAL_TEXT_FONT,
-                                     fg=WHITE_COLOR, bg=BACKGROUND_COLOR, anchor='w')
+                                     fg=TEXT_COLOR, bg=BACKGROUND_COLOR, anchor='w')
         self.vfound_label.place(x=50, y=315, width=280, height=30)
 
-        # TODO: Make this round
-        self.quit_btn = tk.Button(self, fg=BACKGROUND_COLOR, bg=FAILURE_COLOR)
+        # TODO: Set a better Icon here, bigger!
+        self.abort_icon = tk.PhotoImage(file="images/icons/cancel_sign.png")
+        self.quit_btn = tk.Button(self, fg=BACKGROUND_COLOR, bg=FAILURE_COLOR,
+                                  image=self.abort_icon)
         self.quit_btn.config(command=lambda: controller.show_frame(controller.pages[0]))
         self.quit_btn.place(x=375, y=375, width=50, height=50)

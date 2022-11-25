@@ -5,13 +5,18 @@ Classes: Windows
 
 # Importing the tkinter module
 import tkinter as tk
+import ctypes
 
+from pages.SettingsLogPage import SettingsLogPage
 from pages.MainPage import MainPage
 from pages.SettingsPage import SettingsPage
 from pages.LoadingPage import LoadingPage
 from pages.InfoPage import InfoPage
 from pages.VirusPage import VirusPage
 from pages.ClearPage import ClearPage
+
+# Sets a higher resolution on Tkinter frames
+ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
 
 class Windows(tk.Tk):
@@ -22,7 +27,7 @@ class Windows(tk.Tk):
         show_frame(self, cont)
     """
     # Items have a fixed order! -> Contains all pages as a reference
-    pages = (MainPage, SettingsPage, LoadingPage, InfoPage, VirusPage, ClearPage)
+    pages = (MainPage, SettingsPage, LoadingPage, InfoPage, VirusPage, ClearPage, SettingsLogPage)
 
     def __init__(self):
         """ Initializes the class """
