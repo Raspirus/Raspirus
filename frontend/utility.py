@@ -1,3 +1,7 @@
+"""
+A simple script that contains global values and variables for the frontend
+"""
+
 # Fonts
 TITLE_FONT = ("Inter", 64, "bold")
 SUBTITLE_FONT = ("Inter", 44, "bold")
