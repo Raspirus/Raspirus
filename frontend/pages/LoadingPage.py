@@ -41,3 +41,7 @@ class LoadingPage(tk.Frame):
                                   image=self.abort_icon)
         self.quit_btn.config(command=lambda: controller.show_frame(controller.pages[0]))
         self.quit_btn.place(x=375, y=375, width=50, height=50)
+
+    def setLoadingStatus(self, status: int):
+        if 0 <= status <= 100:
+            self.progress_bar.config(value=status)
