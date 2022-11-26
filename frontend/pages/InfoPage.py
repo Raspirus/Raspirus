@@ -96,4 +96,3 @@ class InfoPage(tk.Frame):
 
         if properties[4] is not None:
             self.rcontact_label.config(text=properties[4])
-

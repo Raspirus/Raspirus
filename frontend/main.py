@@ -29,6 +29,9 @@ class Windows(tk.Tk):
     # Items have a fixed order! -> Contains all pages as a reference
     pages = (MainPage, SettingsPage, LoadingPage, InfoPage, VirusPage, ClearPage, SettingsLogPage)
 
+    # App properties: name, version, creator, license, contact
+    properties = [None, None, None, None, None]
+
     def __init__(self):
         """ Initializes the class """
         # Adding a title to the window
@@ -51,6 +54,9 @@ class Windows(tk.Tk):
         # we'll create the frames themselves later but let's add the components to the dictionary.
         for Frame in self.pages:
             frame = Frame(container, self)
+
+            if isinstance(frame, InfoPage):
+                frame.setProperties(self.properties)
 
             # the windows class acts as the root window for the frames.
             self.frames[Frame] = frame
