@@ -8,10 +8,7 @@ use log::{error, info, warn };
 use serde::{Deserialize, Serialize};
 use std::ffi::{OsString, OsStr};
 use std::iter::once;
-use std::os::windows::prelude::OsStrExt;
 use std::{env, fs, path::Path, thread, time};
-use winapi::um::fileapi::GetDriveTypeW;
-use winapi::um::winbase::DRIVE_REMOVABLE;
 use sysinfo::{System, SystemExt};
 
 mod backend;
@@ -136,6 +133,10 @@ async fn list_usb_drives() -> Result<String, String> {
             });
         }
     } else if cfg!(target_os = "windows") {
+        use std::os::windows::prelude::OsStrExt;
+        use winapi::um::fileapi::GetDriveTypeW;
+        use winapi::um::winbase::DRIVE_REMOVABLE;
+
         info!("Trying to retrieve USB drives from Windows OS");
         let drive_letters: Vec<OsString> = vec![
             OsString::from("A"),
@@ -171,7 +172,7 @@ async fn list_usb_drives() -> Result<String, String> {
             let drive_name = drive_path.file_name().unwrap_or_default();
             let drive_path = drive_path.to_str().unwrap();
 
-            let wide_path = OsStr::new(&drive_path).encode_wide().chain(once(0)).collect::<Vec<_>>();
+            let wide_path = OsStrExt::new(&drive_path).encode_wide().chain(once(0)).collect::<Vec<_>>();
             let drive_type = unsafe { GetDriveTypeW(wide_path.as_ptr()) };
 
             match fs::metadata(drive_path) {
