@@ -14,6 +14,12 @@
       "all": false,
       "dialog": {
         "open": true
+      },
+      "shell": {
+        "sidecar": true,
+        "scope": [
+          { "name": "binaries/yara", "sidecar": true }
+        ]
       }
     },
     "bundle": {
@@ -23,7 +29,9 @@
       "deb": {
         "depends": []
       },
-      "externalBin": [],
+      "externalBin": [
+        "binaries/yara"
+      ],
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",

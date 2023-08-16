@@ -113,7 +113,8 @@ export default function Home() {
    */
   const openAgreement = () => {
     // Checks that a folder or device was selected
-    if (value.length <= 0 || value == "None") {
+    /* TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+        if (value.length <= 0 || value == "None") {
       Swal.fire(t('selection_warn'), t('selection_warn_msg'), "warning");
     } else {
       router.push({
@@ -121,6 +122,18 @@ export default function Home() {
         query: { scan_path: value },
       });
     }
+    */
+
+    if (typeof window !== "undefined") {
+
+      invoke("call_yara_test", {})
+        .then((output) => {
+          console.log("Yara output: ", output);
+        })
+        .catch((error) => {
+          console.error("Couldn't retrieve yara: ", error);
+        })
+      }
   };
 
   // Redirects the user to the Information page

@@ -10,6 +10,7 @@ use log::{error, info, LevelFilter};
 use simplelog::{ColorChoice, CombinedLogger, TermLogger, TerminalMode, WriteLogger};
 use std::fs::File;
 use std::{env, fs};
+use tauri::api::process::{CommandEvent, Command};
 
 mod backend;
 mod tests;
@@ -75,7 +76,8 @@ fn main() {
             list_usb_drives,
             update_database,
             check_raspberry,
-            create_config
+            create_config,
+            call_yara_test,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -140,4 +142,25 @@ async fn create_config(contents: Option<String>) -> Result<String, String> {
 pub async fn auto_update_scheduler(tauri_win: tauri::Window, hour: i32, weekday: i32) {
     // ISSUE: Needs to restart app to apply new update schedule
     utils::update_utils::auto_update_scheduler(tauri_win, hour, weekday).await
+}
+
+#[tauri::command]
+async fn call_yara_test() {
+    // `new_sidecar()` expects just the filename, NOT the whole path like in JavaScript
+    let (mut rx, mut child) = Command::new_sidecar("yara")
+        .expect("failed to create `yara` binary command")
+        .spawn()
+        .expect("Failed to spawn sidecar");
+
+    tauri::async_runtime::spawn(async move {
+        // read events such as stdout
+        while let Some(event) = rx.recv().await {
+            info!("Got event: {:?}", event);
+            if let CommandEvent::Stdout(line) = event {
+                info!("YARA: {}", line);
+            } else if let CommandEvent::Stderr(line) = event {
+                error!("YARA: {}", line);
+            }
+        }
+    });
 }
