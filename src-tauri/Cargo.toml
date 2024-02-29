@@ -32,7 +32,7 @@ windows-sys = { version = "0.52.0", features = [ "Win32_Foundation", "Win32_Syst
 md5 = "0.7.0"
 
 [dev-dependencies]
-ctor = "0.2.6"
+ctor = "0.2.7"
 regex = "1.10.3"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
