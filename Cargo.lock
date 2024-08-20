@@ -6246,7 +6246,7 @@ dependencies = [
  "tokio",
  "winapi",
  "windows-sys 0.52.0",
- "zip 2.1.5",
+ "zip 2.2.0",
 ]
 
 [[package]]
@@ -10091,9 +10091,9 @@ dependencies = [
 
 [[package]]
 name = "zip"
-version = "2.1.5"
+version = "2.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b895748a3ebcb69b9d38dcfdf21760859a4b0d0b0015277640c2ef4c69640e6f"
+checksum = "dc5e4288ea4057ae23afc69a4472434a87a2495cafce6632fd1c4ec9f5cf3494"
 dependencies = [
  "aes",
  "arbitrary",
