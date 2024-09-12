@@ -38,7 +38,7 @@ jobs:
     # The steps to run for each matrix item
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
  
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
